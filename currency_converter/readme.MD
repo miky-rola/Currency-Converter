@@ -34,7 +34,9 @@ This Django application allows users to convert amounts from one currency to ano
 Create a .env file in the project root directory and add your API key and API URL.
 
 `api_key=YOUR_API_KEY_HERE`
-`API=API_URL_HERE'
+
+`API=API_URL_HERE`
+
 `api=API/api_key`
 
 ***Ensure the currency_code.csv file is present:***
