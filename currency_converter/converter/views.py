@@ -8,31 +8,34 @@ from django.conf import settings
 load_dotenv()
 
 API_KEY = os.getenv("api_key")
-
 API = os.getenv("api")
 
 # Initialize an empty dictionary to store currency codes
 currency_codes = {}
 
-# Specify the absolute file path of the CSV file
-file_path = settings.BASE_DIR / "converter/currency_code.csv"
+# Specify the absolute file paths of the CSV files
+currency_code_file_path = settings.BASE_DIR / "converter/currency_code.csv"
 
-# Print the file path and check if the file exists for debugging purposes
-print(f"File path: {file_path}")
-print(f"File exists: {os.path.isfile(file_path)}")
 
-# Try to read the CSV file and populate the dictionary
-try:
-    with open(file_path, "r") as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            key, value = row
-            currency_codes[key] = value
-    print("CSV file read successfully.")
-except FileNotFoundError:
-    print("FileNotFoundError: The CSV file was not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")
+# Function to read CSV file and populate a dictionary
+def read_csv_to_dict(file_path):
+    data_dict = {}
+    try:
+        with open(file_path, "r") as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                key, value = row
+                data_dict[key] = value
+        print(f"CSV file {file_path} read successfully.")
+    except FileNotFoundError:
+        print(f"FileNotFoundError: The CSV file {file_path} was not found.")
+    except Exception as e:
+        print(f"An error occurred while reading {file_path}: {e}")
+    return data_dict
+
+# Populate dictionaries from CSV files
+currency_codes = read_csv_to_dict(currency_code_file_path)
+
 
 def get_currency_code(name):
     """Convert common currency names to ISO 4217 codes."""
@@ -55,13 +58,11 @@ def convert_currency(request):
         from_currency = get_currency_code(from_currency)
         to_currency = get_currency_code(to_currency)
 
-
         # Validate input fields
         if not from_currency or not to_currency or not amount:
             context["error"] = "Please fill in all fields."
             return render(request, "converter/index.html", context)
 
-    
         try:
             amount = float(amount)
         except ValueError:
@@ -98,7 +99,6 @@ def convert_currency(request):
         except ValueError:
             context["error"] = "Invalid response from the API."
 
-        
         print(f"Context: {context}")
 
     # Render the template with the context
