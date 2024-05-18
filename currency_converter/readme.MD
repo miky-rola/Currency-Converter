@@ -20,8 +20,11 @@ This Django application allows users to convert amounts from one currency to ano
 
 
 **Create and activate a virtual environment:**
+
 `python -m venv venv`
+
 `source venv/bin/activate ` # On Mac 
+
 `venv\Scripts\activate` # On Windows 
 
 **Install the required packages:**
@@ -31,16 +34,16 @@ This Django application allows users to convert amounts from one currency to ano
 Create a .env file in the project root directory and add your API key and API URL.
 
 `api_key=YOUR_API_KEY_HERE`
-`API`=API_URL_HERE
-`api=API`
+`API=API_URL_HERE'
+`api=API/api_key`
 
-Ensure the currency_code.csv file is present:
+***Ensure the currency_code.csv file is present:***
 Place the currency_code.csv file in the converter directory. This file should contain currency names and their corresponding ISO 4217 codes in CSV format.
 
 **Run the Django server:**
 `python manage.py runserver`
 
-Access the application:
+***Access the application:***
 Open your web browser and navigate to http://127.0.0.1:8000.
 
 ## Usage
@@ -66,4 +69,4 @@ Open your web browser and navigate to http://127.0.0.1:8000.
 ## Contributing
 Feel free to open issues or submit pull requests with improvements or bug fixes. Ensure your contributions adhere to the project's coding standards.
 
-For any questions or further assistance, please contact [(https://github.com/miky-rola)| (mikyrola8@gmail.com)].
+For any questions or further assistance, please contact [(https://github.com/miky-rola) | (mikyrola8@gmail.com)].
