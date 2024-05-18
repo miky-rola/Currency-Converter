@@ -62,9 +62,13 @@ Open your web browser and navigate to http://127.0.0.1:8000.
 - Project Structure
 
 ***converter/: Contains the Django application code.***
+
 ***views.py: Contains the main logic for converting currencies and handling API requests.***
+
 ***currency_code.csv: CSV file mapping common currency names to ISO 4217 codes.***
+
 ***templates/converter/: Contains HTML templates.***
+
 ***index.html: Main template for the currency converter interface.***
 
 
