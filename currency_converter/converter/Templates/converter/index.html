@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="{% static 'converter/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="from_currency">From:</label>
+            <select id="from_currency" name="from_currency">
+                {% for key, value in currency_codes.items %}
+                      <option value={{value}}>{{key}}</option>
+                {% endfor %}
+            </select>
+            <label for="to_currency">To:</label>
+            <select id="to_currency" name="to_currency">
+                {% for key, value in currency_codes.items %}
+                      <option value={{value}}>{{key}}</option>
+                {% endfor %}
+            </select>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" step="1.00" placeholder="e.g., 100.00" required>
+            <button type="submit">Convert</button>
+        </form>
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% elif converted_amount %}
+        <div class="result">
+            <p>{{ amount }} {{ from_currency }} = {{ converted_amount }} {{ to_currency }}</p>
+            <p>Conversion Rate: 1 {{ from_currency }} = {{ rate }} {{ to_currency }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
